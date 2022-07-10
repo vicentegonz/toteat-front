@@ -83,8 +83,8 @@ export default {
                 this.history = true
                 this.message = null
                 axios
-                    //.get("https://toteat-back.herokuapp.com/")
-                    .get("http://127.0.0.1:8000/" + this.sector)
+                    .get("https://toteat-back.herokuapp.com/" + this.sector)
+                    //.get("http://127.0.0.1:8000/" + this.sector)
                     .then(res => {
                         this.res_data = res.data.data
                         this.information = res.data.info})
@@ -95,8 +95,8 @@ export default {
     },
     mounted() {
         axios
-        //.get("https://toteat-back.herokuapp.com/")
-        .get("http://127.0.0.1:8000/")
+        .get("https://toteat-back.herokuapp.com/")
+        //.get("http://127.0.0.1:8000/")
         .then(res => {
             this.general_i = res.data.sells
     })

@@ -17,7 +17,7 @@
         <h2>Se busco la informacion de {{serch}}</h2>
         <h3>Resumen General</h3>
         <GeneralValues v-if="res_data" :general_i="res_data"></GeneralValues>
-        <select @change="handleChange2()" name="Fechas disponibles" v-model="selection2">
+        <select v-if="sells" @change="handleChange2()" name="Fechas disponibles" v-model="selection2">
             <option v-for="k in Object.keys(sells).sort()" :key="k">{{k}}</option>
         </select>
         <button @click="handleSerch2()">Click to serch</button>
@@ -103,10 +103,9 @@ export default {
                 this.history = true
                 this.message = null
                 axios
-                    //.get("https://toteat-back.herokuapp.com/")
-                    .get("http://127.0.0.1:8000/worker/" + this.sector)
+                    .get("https://toteat-back.herokuapp.com/worker/" + this.sector)
+                    //.get("http://127.0.0.1:8000/worker/" + this.sector)
                     .then(res => {
-                        console.log(res)
                         this.res_data = res.data.data
                         this.sells = res.data.sells})
             }
@@ -121,10 +120,9 @@ export default {
                 this.history2 = true
                 this.message2 = null
                 axios
-                    //.get("https://toteat-back.herokuapp.com/")
-                    .get("http://127.0.0.1:8000/" + this.sector2 + "/" + this.sector)
+                    .get("https://toteat-back.herokuapp.com/" + this.sector2 + "/" + this.sector)
+                    //.get("http://127.0.0.1:8000/" + this.sector2 + "/" + this.sector)
                     .then(res => {
-                        console.log(res)
                         this.res_data2 = res.data.data
                         this.sells2 = res.data.info})
             }
@@ -133,8 +131,8 @@ export default {
     },
     mounted() {
         axios
-        //.get("https://toteat-back.herokuapp.com/")
-        .get("http://127.0.0.1:8000/")
+        .get("https://toteat-back.herokuapp.com/")
+        //.get("http://127.0.0.1:8000/")
         .then(res => {
             this.general_i = res.data.data
     })

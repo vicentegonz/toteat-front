@@ -28,8 +28,8 @@ export default {
     },
     mounted() {
         axios
-        //.get("https://toteat-back.herokuapp.com/")
-        .get("http://127.0.0.1:8000/get/specific/bill/information/id/" + this.id)
+        .get("https://toteat-back.herokuapp.com/get/specific/bill/information/id/" + this.id)
+        //.get("http://127.0.0.1:8000/get/specific/bill/information/id/" + this.id)
         .then(res => {
             this.bill = res.data.transaction
             this.bill.products.forEach(element => {

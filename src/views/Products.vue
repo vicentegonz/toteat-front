@@ -16,9 +16,12 @@
 
     <div v-if="serch || history">
         <h2>Eston son los productos consumidos hasta {{serch2}} de {{serch}} </h2>
-        <li v-for="k in Object.keys(general_i.products_quantity[serch])" :key="k">
-            Se consumieron {{cantidades[k][1]}} unidades de {{k}} a $ {{cantidades[k][0]}} pesos
-        </li> <br>
+        <div v-if="cantidades">
+            <li v-for="k in Object.keys(general_i.products_quantity[serch])" :key="k">
+                Se consumieron {{cantidades[k][1]}} unidades de {{k}} a $ {{cantidades[k][0]}} pesos
+            </li> 
+        </div>
+        <br>
         <GeneralValues v-if="sells2" :general_i="sells2"></GeneralValues>
         <table v-if="res_data2 && sells2">
                 <div v-if="sells2">
@@ -96,10 +99,9 @@ export default {
                 this.history = true
                 this.message = null
                 axios
-                    //.get("https://toteat-back.herokuapp.com/")
-                    .get("http://127.0.0.1:8000/products/from/"+ this.sector + "/until/" + this.sector2)
+                    .get("https://toteat-back.herokuapp.com/products/from/"+ this.sector + "/until/" + this.sector2)
+                    //.get("http://127.0.0.1:8000/products/from/"+ this.sector + "/until/" + this.sector2)
                     .then(res => {
-                        console.log(res)
                         this.res_data2 = res.data.data
                         this.sells2 = res.data.info
                         this.cantidades = res.data.cantidades})
@@ -110,8 +112,8 @@ export default {
     },
     mounted() {
         axios
-        //.get("https://toteat-back.herokuapp.com/")
-        .get("http://127.0.0.1:8000/")
+        .get("https://toteat-back.herokuapp.com/")
+        //.get("http://127.0.0.1:8000/")
         .then(res => {
             this.general_i = res.data.data
             this.sells = res.data.sells

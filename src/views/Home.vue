@@ -24,8 +24,8 @@ export default {
     },
     mounted() {
         axios
-        //.get("https://toteat-back.herokuapp.com/")
-        .get("http://127.0.0.1:8000/")
+        .get("https://toteat-back.herokuapp.com/")
+        //.get("http://127.0.0.1:8000/")
         .then(res => {
             this.general_i = res.data.data
     })

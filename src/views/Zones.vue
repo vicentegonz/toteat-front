@@ -14,7 +14,8 @@
     <div v-if="serch || history">
         <h2>Sector: {{serch}}</h2>
         <h3>Resumen General sector {{serch}}</h3>
-        <GeneralValues v-if="res_data" :general_i="res_data"></GeneralValues>
+        <div v-if="sells && res_data">
+        <GeneralValues :general_i="res_data"></GeneralValues>
         <select @change="handleChange2()" name="Fechas disponibles" v-model="selection2">
             <option v-for="k in Object.keys(general_i.zones_tables_usage[serch])" :key="k">{{k}}</option>
         </select>
@@ -22,6 +23,7 @@
             <option v-for="k in Object.keys(sells).sort()" :key="k">{{k}}</option>
         </select>
         <button @click="handleSerch2()">Click to serch</button>
+        </div>
         <div v-if="serch2 || history2">
             <h2>Mesa {{serch2}} el dia {{serch3}}</h2>
             <GeneralValues v-if="sells2" :general_i="sells2"></GeneralValues>
@@ -106,10 +108,9 @@ export default {
                 this.history = true
                 this.message = null
                 axios
-                    //.get("https://toteat-back.herokuapp.com/")
-                    .get("http://127.0.0.1:8000/tables/" + this.sector)
+                    .get("https://toteat-back.herokuapp.com/tables/" + this.sector)
+                    //.get("http://127.0.0.1:8000/tables/" + this.sector)
                     .then(res => {
-                        console.log(res)
                         this.res_data = res.data.data
                         this.sells = res.data.sells})
             }
@@ -124,12 +125,10 @@ export default {
                 this.serch3 = this.sector3
                 this.history2 = true
                 this.message2 = null
-                console.log(this.sector2)
                 axios
-                    //.get("https://toteat-back.herokuapp.com/")
-                    .get("http://127.0.0.1:8000/single/table/" + this.sector3 + "/" + this.sector2)
+                    .get("https://toteat-back.herokuapp.com/single/table/" + this.sector3 + "/" + this.sector2)
+                    //.get("http://127.0.0.1:8000/single/table/" + this.sector3 + "/" + this.sector2)
                     .then(res => {
-                        console.log(res)
                         this.res_data2 = res.data.data
                         this.sells2 = res.data.info})
             }
@@ -142,8 +141,8 @@ export default {
     },
     mounted() {
         axios
-        //.get("https://toteat-back.herokuapp.com/")
-        .get("http://127.0.0.1:8000/")
+        .get("https://toteat-back.herokuapp.com/")
+        //.get("http://127.0.0.1:8000/")
         .then(res => {
             this.general_i = res.data.data
     })
