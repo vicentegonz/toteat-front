@@ -43,8 +43,10 @@
         </table>
     </div>
     <div v-else>
-        <p v-if="message">{{message}}</p>
-        <p>No se a buscado nada</p>
+        <div v-if="message">
+            <p>{{message}}</p>
+            <p>No se a buscado nada</p>
+        </div>
     </div>
 </template>
 

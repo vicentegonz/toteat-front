@@ -15,7 +15,7 @@
 
     <div v-if="serch || history">
         <h2>Se busco la informacion de {{serch}}</h2>
-        <h3>Resumen General</h3>
+        <h3 v-if="res_data">Resumen General</h3>
         <GeneralValues v-if="res_data" :general_i="res_data"></GeneralValues>
         <select v-if="sells" @change="handleChange2()" name="Fechas disponibles" v-model="selection2">
             <option v-for="k in Object.keys(sells).sort()" :key="k">{{k}}</option>
@@ -52,13 +52,17 @@
             </table>
         </div>
         <div v-else>
-            <p v-if="message2">{{message2}}</p>
-            <p>No se a buscado nada</p>
+            <div v-if="message2">
+                <p>{{message2}}</p>
+                <p>No se a buscado nada</p>
+        </div>
         </div>
     </div>
     <div v-else>
-        <p v-if="message">{{message}}</p>
-        <p>No se a buscado nada</p>
+        <div v-if="message">
+            <p>{{message}}</p>
+            <p>No se a buscado nada</p>
+        </div>
     </div>
 </template>
 
